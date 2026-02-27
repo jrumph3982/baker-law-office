@@ -81,7 +81,8 @@
       <p class="welcome-text" style="margin-bottom: 3rem;">
         Jackie is now dedicating her practice exclusively to family law — the area where she has always been most
         passionate and effective. Families facing difficult legal challenges deserve an attorney who is fully invested,
-        deeply knowledgeable, and genuinely committed to their outcome. That is exactly what Jackie brings to every case.
+        deeply knowledgeable, and genuinely committed to their outcome. That is exactly what Jackie brings to every
+        case.
       </p>
       <div class="practice-grid">
         <div class="practice-card">
@@ -113,7 +114,7 @@
     <div class="container">
       <div class="testimonial-slider" id="testimonial-slider">
         <div class="testimonial-track" id="testimonial-track">
-          <div class="testimonial-slide active">
+          <div class="testimonial-slide" id="slide-0" style="display:block;">
             <blockquote>
               "Jackie has represented me for 5 years now. She has always gone up and above. Jackie has always taken the
               time to listen to the issues and has come up with the best plan of action to succeed in court. She is very
@@ -121,14 +122,14 @@
             </blockquote>
             <cite>— Elizabeth</cite>
           </div>
-          <div class="testimonial-slide">
+          <div class="testimonial-slide" id="slide-1" style="display:none;">
             <blockquote>
               "Jackie will assertively and aggressively pursue your case. She is a fantastic advocate, I would
               definitely recommend."
             </blockquote>
             <cite>— Michael</cite>
           </div>
-          <div class="testimonial-slide">
+          <div class="testimonial-slide" id="slide-2" style="display:none;">
             <blockquote>
               "Definitely went above and beyond for my family. She's amazing!"
             </blockquote>
@@ -136,17 +137,37 @@
           </div>
         </div>
         <div class="testimonial-controls">
-          <button class="t-prev" id="t-prev" aria-label="Previous">&#8592;</button>
-          <div class="t-dots" id="t-dots">
-            <span class="t-dot active"></span>
-            <span class="t-dot"></span>
-            <span class="t-dot"></span>
+          <button class="t-prev" onclick="moveSlide(-1)" aria-label="Previous">&#8592;</button>
+          <div class="t-dots">
+            <span class="t-dot" id="dot-0" style="background:var(--gold);cursor:pointer;" onclick="goSlide(0)"></span>
+            <span class="t-dot" id="dot-1" style="cursor:pointer;" onclick="goSlide(1)"></span>
+            <span class="t-dot" id="dot-2" style="cursor:pointer;" onclick="goSlide(2)"></span>
           </div>
-          <button class="t-next" id="t-next" aria-label="Next">&#8594;</button>
+          <button class="t-next" onclick="moveSlide(1)" aria-label="Next">&#8594;</button>
         </div>
       </div>
     </div>
   </section>
+
+  <script>
+    var currentSlide = 0;
+    var totalSlides = 3;
+    var autoTimer = setInterval(function () { moveSlide(1); }, 5000);
+
+    function goSlide(n) {
+      document.getElementById('slide-' + currentSlide).style.display = 'none';
+      document.getElementById('dot-' + currentSlide).style.background = '';
+      currentSlide = (n + totalSlides) % totalSlides;
+      document.getElementById('slide-' + currentSlide).style.display = 'block';
+      document.getElementById('dot-' + currentSlide).style.background = 'var(--gold)';
+    }
+
+    function moveSlide(dir) {
+      clearInterval(autoTimer);
+      goSlide(currentSlide + dir);
+      autoTimer = setInterval(function () { moveSlide(1); }, 5000);
+    }
+  </script>
 
   <!-- CTA BAND -->
   <section class="cta-band">
@@ -174,4 +195,6 @@
       </div>
     </div>
     <div class="footer-bottom container">
-      <p>&copy; <span id=
+      <p>&copy; <span id="year"></span> Baker Law Office, PLC. All Rights Reserved.</p>
+    </div>
+  </footer>
